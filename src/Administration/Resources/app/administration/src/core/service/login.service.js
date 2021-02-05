@@ -321,9 +321,9 @@ export default function createLoginService(httpClient, context, bearerAuth = nul
      * @returns {CookieStorage}
      */
     function cookieStorageFactory() {
-        const domain = context.host;
+        // take current domain instead of context to enable other hosts than "localhost"
+        const domain = window.location.hostname;
         const path = context.basePath + context.pathInfo;
-
         // Set default cookie values
         return new CookieStorage(
             {
@@ -334,7 +334,6 @@ export default function createLoginService(httpClient, context, bearerAuth = nul
             }
         );
     }
-
     /**
      * @deprecated 6.3.0
      * It resets the old localStorage implementation of the authentication.
